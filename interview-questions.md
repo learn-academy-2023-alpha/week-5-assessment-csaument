@@ -57,11 +57,27 @@ end
 
 Researched answer:
 
+A method call Super calls the parent class, defaulted to the Object class. This call can be made without any arguments, in which case the parameters received by this function will be forwarded to the Super call. Alternatively, no arguments can be passed with Super() or varying numbers of parameters can be passed with the Super(arg1, arg2...) syntax.
+
+Another interesting use of the Super call is when using decorators to expand functionality of a class/module without creating two distinct subclasses with and without that functionality.
+
 2. What is a gem?
 
 Your answer: Ruby provides expansion opportunities through gems. Some gems define classes or functions for use within an application while others provide compatability for interacting with an API. For example, RSpec is a gem that provides additional functions for test-driven development in Ruby and Rails applications. Gems must be imported into the Ruby application and installed into the compiler to provide desired functions. I'll research the syntax for these operations and several useful gems.
 
-Researched answer:
+Researched answer: Using a Gem in Ruby requires several commands to install the additional functionality.
+
+```ruby
+source 'URL'
+
+gem 'gemname'
+```
+
+```terminal
+gem install gem_name
+```
+
+Gems are structured with a lib/ folder for the source code, a bin/ folder with an executible .rb file, a test/ folder with .rb tests, a README, and a Rakefile.
 
 3. What is a relational database? Are there other kinds of databases?
 
@@ -79,13 +95,13 @@ Similarly, unique user recommendations and searches must factor the likelihood t
 
 Relational databases provide an intuitive and efficient way to simplify data organization within minimally necessary databases, organziation of those databases within different servers, and efficient operations for data manipulation. When the dataset is small or consists entirely of unrelated and unique data, then standalone databases could provide the basic functionality needed.
 
-Researched answer:
+Researched answer: NoSQL databases contain data formatted in a different way. For example, they might use a simple .JSON object containing key:value pairs or a graph. This provides optimization for models using unique/unusual data structures. For example, a database that stores names can provide unique structures for each name when multiple middle names, suffixes, or prefixes are used. Alternative implementation in an SQL database would require largely null data within the corresponding columns.
 
 4. What are primary keys? Why are they important?
 
 Your answer: Primary keys are unique identifies for data within a database. They function like a hash map to ensure that each element within the database is distinct for other elements within the array. For example, creating, reading, updating, or destroying an element should effect only that element. Within a relational database, related databases include a foreign id that tracks the unique id for a related database's primary keys. Within SQL applications, primary keys are integer values that increment based upon the sequence in which elements were added to the database.
 
-Researched answer:
+Researched answer: Primary keys provide unique identification for each element within a database. Within PostgreSQL relational databases, each element is physically stored as a node within a tuple tree. Create commands create a new node down the tree with a unique ID/primary key. Update and destroy commands actually append a new node at the end of a primary key's branch. Particularly for indexed databases where data can be reached quickly, this means that those operations can be performed with O(1) efficiency. It does, however, provide a drawback in that the tree will grow increasingly large over time, although it provides some additional security through version tracking.
 
 5. What are the HTTP verbs? What is each verb's corresponding CRUD action?
 
@@ -96,18 +112,25 @@ Your answer: HTTP implements five commands to perform CRUD actions. They are:
 1. patch - updates a value for an element
 1. delete - destroys an element
 
-Researched answer:
+Researched answer: Slight update/correction to the above:
+1. POST - creates an element
+1. GET - reads an element
+1. PUT - updates an entire element
+1. PATCH - updates part of an element
+1. DELETE - destroys an element
+
+These commands work with .JSON formatted objects. Researching further into backend mechanics, a number of security procedures are necessary to ensure that these commands are performed safely within an application. One such validation is the security handshake, ensuring that a user has permissions to access data or to perform permanent changes to the database model. Additionally, there must be checks in place to ensure that undesired commands are not processed, such as duplicating a POST command when a webpage is refreshed.
 
 ## Looking Ahead: Terms for Next Week
 
 Research and define the following terms to the best of your ability.
 
-1. RESTful routes:
+1. RESTful routes: RESTful routes include a route name, URL, HTTP verb, and description of their intent. This ensures that new applications follow CRUD and allows the developer(s) to prioritize working on functionality.
 
-2. Model validations:
+2. Model validations: Model validations help protect a database from erroneous entries. By validating that necessary data are provided and that they meet the formatting requirements of the model, we can ensure that INSERT and UPDATE commands will not break a database. 
 
-3. Params:
+3. Params: Parameters. These are arguments received by a function/method call. Specifically within the context of Rails, there is a params method. Params are stored as a Ruby hash and provide interactive and fluid applications through changing data.
 
-4. ERB:
+4. ERB: Epic Rap Battles. Depending on the specific video, these range from hilarious to meh. The original ERBs were produced by creative developer Nice Peter, providing him with a significant boost in notoriety. Unless you're referring to the Embedded RuBy version, which allows integration of Ruby code with data to produce strings with interpolated data/variables.
 
-5. API:
+5. API: Application Programming Interface. An API provides instructions for working with data. Depending upon a user's scope of authorities, each API provides requirements for establishing a connection, describes how data is formatted, and provides commands for creating, reading, updating, and destroying data.

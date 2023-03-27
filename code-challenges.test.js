@@ -112,10 +112,10 @@ describe("fullHouseCheck", () => {
       const hand4 = [7, 2, 7, 2, 7]
       // Expected output: true
 it("takes in an array of words and a single letter and returns an array of all the words containing that particular letter.", () => {
-      expect(fullHouseCheck(hand1)).toEqual(true)
-      expect(fullHouseCheck(hand2)).toEqual(false)
-      expect(fullHouseCheck(hand3)).toEqual(false)
-      expect(fullHouseCheck(hand4)).toEqual(true)
+      expect(arrHash(hand1)).toEqual(true)
+      expect(arrHash(hand2)).toEqual(false)
+      expect(arrHash(hand3)).toEqual(false)
+      expect(arrHash(hand4)).toEqual(true)
 })
 })
 
@@ -146,3 +146,74 @@ const fullHouseCheck = (hand) => {
 // Time:        0.579 s, estimated 1 s
 // Ran all test suites.
 // ✨  Done in 2.08s.
+
+// Alternate method using a Hash Map to track the counts of each value from the hand
+// Create a hashmap to track counts of each value
+// key = card number
+// value = count of each card with that value
+// Iterate accross the hand, updating the hash map
+// Cast the object into an array of values, flatten the values, and find the min and max card counts
+// Return true when there are two of one card and three of another
+// Otherwise return false
+
+const fullHash = (hand) => {
+      let acc = {}
+      hand.forEach(card => acc[card] = acc[card] ? acc[card] + 1 : 1)
+
+      return 3 === Math.max(...Object.values(acc))  && 2 === Math.min(...Object.values(acc)) ? true : false
+}
+
+// Test Suites: 1 passed, 1 total
+// Tests:       3 passed, 3 total
+// Snapshots:   0 total
+// Time:        0.575 s, estimated 1 s
+// Ran all test suites.
+// ✨  Done in 2.38s.
+
+// Single test shows that hashmaps with .reduce's accumulator are potentially more efficient than implementation with an object. Let's try a sparse array.
+
+const arrHash = (hand) => {
+      let acc = []
+      hand.forEach(card => acc[card] = acc[card] ? acc[card] + 1 : 1)
+      acc = acc.filter(count => count)
+      return 3 === Math.max(...acc)  && 2 === Math.min(...acc) ? true : false
+}
+
+// Test Suites: 1 passed, 1 total
+// Tests:       3 passed, 3 total
+// Snapshots:   0 total
+// Time:        0.434 s, estimated 1 s
+// Ran all test suites.
+// ✨  Done in 1.96s.
+
+// Single test shoes some improvement over object-based implementation and marginal improvement over .reduce implementation.
+
+// Test Suites: 1 passed, 1 total
+// Tests:       3 passed, 3 total
+// Snapshots:   0 total
+// Time:        0.453 s, estimated 1 s
+// Ran all test suites.
+// ✨  Done in 1.63s.
+
+// Test Suites: 1 passed, 1 total
+// Tests:       3 passed, 3 total
+// Snapshots:   0 total
+// Time:        0.304 s, estimated 1 s
+// Ran all test suites.
+// ✨  Done in 0.93s.
+
+// Test Suites: 1 passed, 1 total
+// Tests:       3 passed, 3 total
+// Snapshots:   0 total
+// Time:        0.272 s, estimated 1 s
+// Ran all test suites.
+// ✨  Done in 0.89s.
+
+// Test Suites: 1 passed, 1 total
+// Tests:       3 passed, 3 total
+// Snapshots:   0 total
+// Time:        0.258 s, estimated 1 s
+// Ran all test suites.
+// ✨  Done in 0.86s.
+
+// Repeating the test suite show log improvements to runtime. This indicates some sort of memoization by the testing environment or raw javascript.
